@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-06-2019 a las 05:08:14
+-- Tiempo de generación: 12-06-2019 a las 20:32:08
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.3
 
@@ -40,7 +40,10 @@ CREATE TABLE `contenido` (
 --
 
 INSERT INTO `contenido` (`id_contenido`, `url_archivo`, `add_fecha`, `id_tipocontenido`) VALUES
-(3, 'https://scontent.fmid2-1.fna.fbcdn.net/v/t1.0-9/62112403_1298411290307088_1724614911931187200_n.jpg?_nc_cat=104&_nc_ht=scontent.fmid2-1.fna&oh=4af223477453766e7c092eb2a7a1a6c0&oe=5D865A41', '2019-06-05', 1);
+(3, 'https://scontent.fmid2-1.fna.fbcdn.net/v/t1.0-9/62112403_1298411290307088_1724614911931187200_n.jpg?_nc_cat=104&_nc_ht=scontent.fmid2-1.fna&oh=4af223477453766e7c092eb2a7a1a6c0&oe=5D865A41', '2019-06-05', 1),
+(4, 'https://cdnb.artstation.com/p/assets/images/images/017/788/381/original/j-tuason-vintage-suit-body.gif?1557339267', '2019-06-05', 3),
+(5, 'https://cdnb.artstation.com/p/assets/images/images/017/788/381/original/j-tuason-vintage-suit-body.gif?1557339267', '2019-06-05', 3),
+(6, 'https://cdnb.artstation.com/p/assets/images/images/017/788/381/original/j-tuason-vintage-suit-body.gif?1557339267', '2019-06-05', 3);
 
 -- --------------------------------------------------------
 
@@ -61,7 +64,7 @@ CREATE TABLE `cuenta` (
 --
 
 INSERT INTO `cuenta` (`id_cuenta`, `correo`, `password`, `id_usuario`, `estado`) VALUES
-(1, 'german@gmail.com', '123', 1, 1),
+(1, 'aleuc1996@gmail.com', '123', 1, 1),
 (2, 'ita@gmail.com', '123', 6, 1),
 (3, 'beto@gmail.com', '123', 7, 1),
 (4, 'miguel@gmail.com', '123', 8, 1),
@@ -69,7 +72,8 @@ INSERT INTO `cuenta` (`id_cuenta`, `correo`, `password`, `id_usuario`, `estado`)
 (6, 'juan@gmail.com', '123', 10, 0),
 (7, 'latina@gmail.com', '123', 11, 1),
 (8, 'rodri@gmail.com', '123', 13, 1),
-(9, 'root@root.access', 'rootaccess', 14, 1);
+(9, 'root@root.access', 'rootaccess', 14, 1),
+(11, 'soap@gmail.com', '123', 21, 1);
 
 -- --------------------------------------------------------
 
@@ -96,7 +100,11 @@ INSERT INTO `repositorio` (`id_repositorio`, `id_cuenta`, `id_tiporepositorio`, 
 (4, 2, 6, 'Ajedrez Interfaz', '2019-05-31'),
 (5, 2, 8, 'Ajedrez Mecanico', '2019-05-31'),
 (9, 9, 6, 'Repositorio de demostración', '2019-06-05'),
-(10, 9, 4, '123123123', '2019-05-31');
+(10, 9, 1, 'Esferas gravitatorias', '2019-05-31'),
+(11, 1, 3, 'Mapache', '2019-06-10'),
+(12, 1, 4, 'kjjhg', '2019-06-10'),
+(13, 9, 2, 'Recorrido ITCH', '2019-05-31'),
+(14, 1, 4, 'fuego', '2019-06-12');
 
 -- --------------------------------------------------------
 
@@ -114,7 +122,8 @@ CREATE TABLE `repositoriocontenido` (
 --
 
 INSERT INTO `repositoriocontenido` (`id_repositorio`, `id_contenido`) VALUES
-(2, 3);
+(2, 3),
+(1, 6);
 
 -- --------------------------------------------------------
 
@@ -146,14 +155,14 @@ INSERT INTO `tipocontenido` (`id_tipocontenido`, `categoria`) VALUES
 
 CREATE TABLE `tiporepositorio` (
   `id_tiporepositorio` int(11) NOT NULL,
-  `tipoproyecto` varchar(30) NOT NULL
+  `tiporepositorio` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tiporepositorio`
 --
 
-INSERT INTO `tiporepositorio` (`id_tiporepositorio`, `tipoproyecto`) VALUES
+INSERT INTO `tiporepositorio` (`id_tiporepositorio`, `tiporepositorio`) VALUES
 (1, 'Realidad Virtual'),
 (2, 'Realidad Aumentada'),
 (3, 'Modelo 3D'),
@@ -189,7 +198,8 @@ INSERT INTO `usuarios` (`id_usuario`, `nombre`, `apellido`, `fecha_na`) VALUES
 (10, 'Juan', 'Otako', '2019-05-03'),
 (11, 'Lalatina', 'Courier', '2019-05-16'),
 (13, 'Rodrigo', 'Cardenaz', '2019-05-31'),
-(14, 'Root', 'Access', '0001-01-01');
+(14, 'Root', 'Access', '0001-01-01'),
+(21, 'soap', 'service', '2019-05-31');
 
 --
 -- Índices para tablas volcadas
@@ -250,19 +260,19 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `contenido`
 --
 ALTER TABLE `contenido`
-  MODIFY `id_contenido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_contenido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `cuenta`
 --
 ALTER TABLE `cuenta`
-  MODIFY `id_cuenta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_cuenta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `repositorio`
 --
 ALTER TABLE `repositorio`
-  MODIFY `id_repositorio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_repositorio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `tipocontenido`
@@ -280,7 +290,7 @@ ALTER TABLE `tiporepositorio`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Restricciones para tablas volcadas
