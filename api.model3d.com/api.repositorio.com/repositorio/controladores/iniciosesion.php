@@ -2,7 +2,6 @@
 
 require_once 'utilidades/ConexionBD.php';
 
-
 class iniciosesion {
 
     const NOMBRE_TABLA = "cuenta";
@@ -65,7 +64,7 @@ class iniciosesion {
         $sentencia = ConexionBD::obtenerInstancia()->obtenerBD()->prepare($comando);
     
         $sentencia->bindParam(1, $correo);
-    
+
         if ($sentencia->execute())
             return $sentencia->fetch(PDO::FETCH_ASSOC);
         else

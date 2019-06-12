@@ -7,6 +7,7 @@ class nuevorepositorio {
     const NOMBRE_TABLA = "repositorio";
 
     const REPOSITORIO_ID_CUENTA = "id_cuenta";
+    const REPOSITORIO_ID_TIPOREPOSITORIO = "id_tiporepositorio";
     const REPOSITORIO_NOMBRE = "nombre_rep";
     const REPOSITORIO_DATE = "fecha_ceacion";
 
@@ -47,20 +48,23 @@ class nuevorepositorio {
 
                 // Sentencia INSERT
                 $comando = "INSERT INTO " . self::NOMBRE_TABLA . " (" .
-                    self::REPOSITORIO_NOMBRE . ", " .
                     self::REPOSITORIO_ID_CUENTA . ", " .
+                    self::REPOSITORIO_ID_TIPOREPOSITORIO . ", " .
+                    self::REPOSITORIO_NOMBRE . ", " .
                     self::REPOSITORIO_DATE . ")" .
-                    " VALUES (?,?,?)";
+                    " VALUES (?,?,?,?)";
                     
                 // Preparar la sentencia
                 $sentencia = $pdo->prepare($comando);
 
-                $sentencia->bindParam(1, $nombre_rep);
-                $sentencia->bindParam(2, $id_cuenta);
-                $sentencia->bindParam(3, $fecha_ceacion);
+                $sentencia->bindParam(1, $id_cuenta);
+                $sentencia->bindParam(2, $id_tiporepositorio);
+                $sentencia->bindParam(3, $nombre_rep);
+                $sentencia->bindParam(4, $fecha_ceacion);
 
-                $nombre_rep = $contenido->nombre_rep;
-                $id_cuenta = $contenido->id_cuenta;             
+                $id_cuenta = $contenido->id_cuenta;   
+                $id_tiporepositorio = $contenido->id_tiporepositorio;                  
+                $nombre_rep = $contenido->nombre_rep;        
                 $fecha_ceacion = $contenido->fecha_ceacion;
 
                 $sentencia->execute();

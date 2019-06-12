@@ -9,8 +9,9 @@ require_once 'controladores/editarrepositorio.php';
 require_once 'controladores/nuevocontenido.php';
 require_once 'controladores/cambiarestadocuenta.php';
 require_once 'controladores/eliminarcontenido.php';
+require_once 'controladores/obtenertiposrepos.php';
 
-require_once 'vistas/VistaXML.php';
+//require_once 'vistas/VistaXML.php';
 require_once 'vistas/VistaJson.php';
 require_once 'utilidades/ExcepcionApi.php';
 
@@ -53,7 +54,8 @@ $recursos_existentes = array(
     'editarrepositorio',
     'nuevocontenido',
     'cambiarestadocuenta',
-    'eliminarcontenido'
+    'eliminarcontenido',
+    'obtenertiposrepos'
 );
 
 // Comprobar si existe el recurso
