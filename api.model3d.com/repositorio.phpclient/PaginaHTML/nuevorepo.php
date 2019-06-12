@@ -7,15 +7,16 @@ if ($_SERVER['REQUEST_METHOD']== 'POST') {
     
     //yyyy-mm-dd
     $nombre_rep = $_POST["nombre_rep"];
+    $id_tiporepo = $_POST["tiporepo"];
     $id_cuenta = $_POST["id_cuenta"];
     $fecha_ceacion = $_POST["fecha_ceacion"];
-
     $nombre = $_POST["nombre"];
     $apellido = $_POST["apellido"];
     
     $datos_post = json_encode(
         array(
             'nombre_rep' => $nombre_rep,
+            'id_tiporepositorio' => $id_tiporepo,
             'id_cuenta' => $id_cuenta,
             'fecha_ceacion' => $fecha_ceacion
         )

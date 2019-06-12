@@ -1,6 +1,7 @@
 <?php
 include_once('httpful/httpful.phar');
-
+session_unset(); 
+session_destroy(); 
 if ($_SERVER['REQUEST_METHOD']== 'POST') {
 
     $url = "localhost/api.model3d.com/api.repositorio.com/repositorio/iniciosesion/iniciar_sesion";

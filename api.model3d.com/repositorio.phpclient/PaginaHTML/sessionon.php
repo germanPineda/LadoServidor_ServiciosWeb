@@ -5,6 +5,7 @@
 	$correo = $_SESSION["correo"];
 	$urlDatosUsuario = "localhost/api.model3d.com/api.repositorio.com/repositorio/obtenerinfousuario/obtener_info";
 	$urlRepositorios = "localhost/api.model3d.com/api.repositorio.com/repositorio/obtenerallrepos/repos_de_cuenta";
+	$urlTiposRespos  = "localhost/api.model3d.com/api.repositorio.com/repositorio/obtenertiposrepos/tipos_repos";
 
 	$datosUsuario = json_encode(
 		array(
@@ -32,11 +33,20 @@
 		->body($datosRepos)
 		->send();
 
+	$responseTipos = \Httpful\Request::post($urlTiposRespos)
+		->sendsJson()
+		->send();
+
 
 	$date = date('Y-m-d');
 
 	//echo $responseUsuario;
 	$repos =  (array) $responseRepos->body->datos;
+	$tiporepo = (array) $responseTipos->body;
+
+	$cantidadRepos = count($repos);
+	//print_r($tiporepo);
+	//echo $tiporepo[0]->tiporepositorio;
  
 	//print_r($responseRepos->body->datos);
 
@@ -61,7 +71,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Bootstrap CRUD Data Table for Database with Modal Form</title>
+	<title>Administrador de proyectos</title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -84,14 +94,24 @@
 						<h2>Administra tus <b>repositorios</b></h2>
 					</div>
 					<div class="col-sm-12">
-						<a href="#addrepomodal" class="btn btn-success" data-toggle="modal"><i
-								class="material-icons">&#xE147;</i> <span>Nuevo repositorio</span></a>
-						<a href="#addprojmodal" class="btn btn-success" data-toggle="modal"><i
-								class="material-icons">&#xE147;</i> <span>Nuevo proyecto</span></a>
-						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i
-								class="material-icons">&#xE15C;</i> <span>Eliminar</span></a>
+
+						<form action="../../reporte2/ex.php" method="POST">
+							<input name="id_cuenta" type="hidden" value="<?php echo $id ?>">													
+							<input type="submit" class="btn btn-success" value="Imprimir mis repositorios">
+						</form>
+
+						<form action="../../enviar-correo-phpmiler/enviar-prueba.php" method="POST">
+							<input name="cantidad" type="hidden" value="<?php echo $cantidadRepos ?>">
+							<input name="name" type="hidden" value="<?php echo $name ?>">	
+							<input name="lastname" type="hidden" value="<?php echo $lastname ?>">	
+							<input name="correo" type="hidden" value="<?php echo $correo ?>">													
+							<input type="submit" class="btn btn-success" value="Enviar un reporte">
+						</form>
+
 						<a href="/api.model3d.com/repositorio.phpclient/paginahtml/logsigIN.html"
-								class="btn btn-warning" data-toggle="modal"><i class="material-icons">&#xe019;</i> <span>Cerrar Sesion</span></a>
+							class="btn btn-warning" data-toggle="modal"><i class="material-icons">&#xe019;</i> <span>Cerrar Sesion</span></a>
+						<a href="#addrepomodal" class="btn btn-success" data-toggle="modal"><i
+							class="material-icons">&#xE147;</i> <span>Nuevo repositorio</span></a>
 					</div>
 				</div>
 			</div>
@@ -112,7 +132,7 @@
                 </thead>
 <!--|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|-->                
 		<tbody>
-			<?php for($i=0; $i < count($repos); ++$i){ ?>
+			<?php for($i=0; $i < $cantidadRepos; ++$i){ ?>
 				<tr>
 					<td>
 						<span class="custom-checkbox">
@@ -124,8 +144,6 @@
 					<td><?php echo $repos[$i]->nombre_rep; ?></td>
 					<td><?php echo $repos[$i]->fecha_ceacion; ?></td>
 					<td>
-						<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons"
-								data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 						<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons"
 								data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 					</td>
@@ -133,7 +151,7 @@
 			<?php } ?>	
 		</tbody>
 <!--|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|-->               
-			</table>
+	<!--		</table>
 			<div class="clearfix">
 				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
 				<ul class="pagination">
@@ -148,7 +166,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- Edit Modal HTML -->
+	 Edit Modal HTML -->
 <!--|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|1|0|-->
 	<div id="addrepomodal" class="modal fade">
 		<div class="modal-dialog">
@@ -162,6 +180,13 @@
 						<div class="form-group">
 							<label>Nombre del repositorio</label>
 							<input name="nombre_rep" type="text" class="form-control" required>
+							<br>
+							<label>Tipo del repositorio</label>
+							<select name="tiporepo" class="form-control">
+								<?php for($i=0; $i < count($tiporepo); ++$i){ ?>
+								<option value="<?php echo $tiporepo[$i]->id_tiporepositorio; ?> "><?php echo $tiporepo[$i]->tiporepositorio; ?></option>
+								<?php } ?>
+							</select>
 						</div>
 						
 						<div class="form-group">
@@ -172,8 +197,8 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-success" value="Add">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+						<input type="submit" class="btn btn-success" value="Añadir">
 					</div>
 				</form>
 			</div>
@@ -221,16 +246,17 @@
 			<div class="modal-content">
 				<form>
 					<div class="modal-header">
-						<h4 class="modal-title">Delete Employee</h4>
+						<h4 class="modal-title">Eliminar repositorio</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">
-						<p>Are you sure you want to delete these Records?</p>
-						<p class="text-warning"><small>This action cannot be undone.</small></p>
+						<p>¿Realmente desea eliminar este repositorio?</p>
+						<p><b>Eliminar</b> un repositorio implica eliminar <b>TODO</b> contenido relacionado con el.</p>
+						<p class="text-warning"><small>Esta acción <b>NO</b> se puede revertir.</small></p>
 					</div>
 					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-danger" value="Delete">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+						<input type="submit" class="btn btn-danger" value="Eliminar">
 					</div>
 				</form>
 			</div>
