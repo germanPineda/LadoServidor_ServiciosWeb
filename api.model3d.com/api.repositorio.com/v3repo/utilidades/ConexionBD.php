@@ -4,7 +4,7 @@
  * para el manejo de la base de modelos
  */
 
-require_once 'datos/login_mysql.php';
+require_once '../datos/login_mysql.php';
 
 const ESTADO_URL_INCORRECTA = 0;
 const ESTADO_CREACION_EXITOSA = 1;

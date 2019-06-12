@@ -4,7 +4,7 @@
  * Mysql.
  */
 define("NOMBRE_HOST", "localhost");// Nombre del host
-define("BASE_DE_DATOS", "people"); // Nombre de la base de modelos
+define("BASE_DE_DATOS", "repobd"); // Nombre de la base de modelos
 define("USUARIO", "root"); // Nombre del usuario
 define("CONTRASENA", ""); // Constraseña
 ?>
