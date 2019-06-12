@@ -6,8 +6,6 @@ Equipo:
   Pineda Uc German Alejandro.
   
   Ramírez Marrufo José Roberto
-  
-  Cortés Arellano Miguel Antonio
 
 El nombre de la base de datos puede ser modificado en el archivo "login_mysql.php"
 
